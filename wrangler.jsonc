@@ -1,0 +1,13 @@
+{
+  "name": "faizal-portfolio",
+  "pages_build_output_dir": "./out",
+  "compatibility_date": "2025-11-01",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "faizal-portfolio",
+      "database_id": "e7c94351-8091-4246-a8a8-151a2313aaae",
+      "migrations_dir": "./migrations"
+    }
+  ]
+}

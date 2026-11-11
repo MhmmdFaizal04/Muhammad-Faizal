@@ -1,0 +1,38 @@
+{
+  "name": "faizal-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm run build && wrangler d1 migrations apply faizal-portfolio --local && wrangler pages dev out",
+    "dev:next": "next dev",
+    "build": "node scripts/sync-github.mjs && node scripts/sync-certificates.mjs && next build",
+    "sync:certificates": "node scripts/sync-certificates.mjs",
+    "refresh:github": "node scripts/sync-github.mjs",
+    "check:wakatime": "node scripts/check-wakatime.mjs",
+    "start": "wrangler pages dev out",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "deploy": "npm run build && wrangler pages deploy out"
+  },
+  "dependencies": {
+    "emoji-picker-react": "^5.1.4",
+    "emoji-regex": "^11.0.0",
+    "gsap": "^3.14.2",
+    "lucide-react": "^0.468.0",
+    "next": "^16.4.6",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "simple-icons": "^16.37.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261110.1",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^16.4.6",
+    "pdf-to-img": "^7.0.2",
+    "typescript": "^5.0.0",
+    "wrangler": "^4.0.0"
+  }
+}

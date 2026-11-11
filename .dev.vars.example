@@ -1,0 +1,5 @@
+# Optional: required to show the real GitHub contributions calendar.
+# Set this as an encrypted Pages secret in production; never commit your actual token.
+GITHUB_TOKEN=your_read_only_github_token
+# Optional: OAuth token with read_stats scope, for real coding hours from WakaTime.
+WAKATIME_OAUTH_TOKEN=your_wakatime_oauth_token
