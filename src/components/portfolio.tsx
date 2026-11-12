@@ -25,7 +25,6 @@ type Tab = (typeof tabs)[number];
 const navigation = [
   { id: "home", icon: House },
   { id: "about", icon: UserRound },
-  { id: "experiences", icon: BriefcaseBusiness },
   { id: "achievements", icon: Award },
   { id: "projects", icon: Layers3 },
   { id: "github", icon: Github },
