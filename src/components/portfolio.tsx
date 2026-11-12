@@ -6,6 +6,7 @@ import Image from "next/image";
 import CustomCursor from "./custom-cursor";
 import Achievements from "./achievements";
 import Contact from "./contact";
+import AiAssistant from "./ai-assistant";
 import { copy, LanguageContext, useCopy, useLanguage, type Language } from "./language";
 import { ReactionBar, useReactions } from "./reactions";
 import pusatPreview from "../../image.png";
@@ -15,10 +16,10 @@ import {
   ArrowRight, ArrowUpRight, BriefcaseBusiness,
   ChevronRight, Code2, Command,
   Github, House, Layers3, MapPin, Gamepad2, Activity, Clock3, Eye,
-  Menu, MessageCircle, Send, ShieldCheck, Sparkles, UserRound, Wrench, X, Award, BadgeCheck,
+  Menu, MessageCircle, Send, ShieldCheck, Sparkles, UserRound, Wrench, X, Award, BadgeCheck, Bot,
 } from "lucide-react";
 
-const tabs = ["home", "skills", "experiences", "achievements", "projects", "github", "chat", "contact"] as const;
+const tabs = ["home", "skills", "experiences", "achievements", "projects", "github", "chat", "contact", "ai"] as const;
 type Tab = (typeof tabs)[number];
 
 const navigation = [
@@ -30,6 +31,7 @@ const navigation = [
   { id: "github", icon: Github },
   { id: "chat", icon: MessageCircle },
   { id: "contact", icon: UserRound },
+  { id: "ai", icon: Bot },
 ] as const;
 
 type Repository = { name: string; description: string | null; html_url: string; language: string | null; stargazers_count: number; updated_at: string; fork: boolean };
@@ -477,7 +479,7 @@ export default function Portfolio() {
   return <LanguageContext.Provider value={language}><div className="site-wrap"><CustomCursor /><div className="site-glow glow-left" /><div className="site-glow glow-right" /><div className="app-shell" ref={shellRef}>
     <aside className={`sidebar ${mobileOpen ? "sidebar-open" : ""}`} ref={sidebarRef}>
       <div className="sidebar-top"><button className="brand" onClick={() => navigate("home")} aria-label={`Muhammad Faizal — ${c.common.home}`}>mf<span>.</span></button><button className="mobile-close" onClick={() => setMobileOpen(false)} aria-label={c.common.closeMenu}><X size={20} /></button></div>
-      <div className="sidebar-profile"><div className="sidebar-avatar"><Image className="profile-avatar-image" src="/profile.jpg" alt="Muhammad Faizal" fill sizes="88px" priority /><i /></div><div className="profile-name">Muhammad Faizal <BadgeCheck className="verified-badge" size={19} fill="#1d9bf0" stroke="#ffffff" strokeWidth={1.8} aria-label={c.common.verified} /></div><div className="profile-badge"><span /> {c.common.profileStatus}</div></div>
+      <div className="sidebar-profile"><div className="sidebar-avatar"><Image className="profile-avatar-image" src="/profile.jpg" alt="Muhammad Faizal" fill sizes="88px" priority /><i /></div><div className="profile-name">Muhammad Faizal <span className="verified-indicator" tabIndex={0} aria-label={c.common.verified} aria-describedby="verified-tooltip"><BadgeCheck className="verified-badge" size={19} fill="#1d9bf0" stroke="#ffffff" strokeWidth={1.8} aria-hidden="true" /><span className="verified-tooltip" id="verified-tooltip" role="tooltip">{c.common.verified}</span></span></div><div className="profile-badge"><span /> {c.common.profileStatus}</div></div>
       <div className="sidebar-controls"><div className="language-switch" aria-label={c.common.languageControl}><button className={language === "en" ? "selected" : ""} onClick={() => setLanguage("en")} aria-pressed={language === "en"}>EN</button><button className={language === "id" ? "selected" : ""} onClick={() => setLanguage("id")} aria-pressed={language === "id"}>ID</button></div><a className="sidebar-icon-link" href="https://github.com/MhmmdFaizal04" target="_blank" rel="noopener noreferrer" aria-label={`${c.common.openGithub} Muhammad Faizal`}><Github size={19} /></a><button className="sidebar-icon-link" onClick={() => navigate("chat")} aria-label={c.common.openChat}><MessageCircle size={19} /></button></div>
       <div className="sidebar-divider" />
       <nav className="navigation" aria-label={language === "id" ? "Navigasi utama" : "Main navigation"}>{navigation.map(({ id, icon: Icon }) => <button key={id} className={`nav-item ${active === id ? "nav-active" : ""}`} onClick={() => navigate(id)} onPointerEnter={(event) => { if (event.pointerType === "mouse") animateSidebarIcon(event.currentTarget, true); }} onPointerLeave={(event) => { if (event.pointerType === "mouse") animateSidebarIcon(event.currentTarget, false); }} onFocus={(event) => animateSidebarIcon(event.currentTarget, true)} onBlur={(event) => animateSidebarIcon(event.currentTarget, false)} aria-current={active === id ? "page" : undefined}><Icon className="nav-icon" size={18} strokeWidth={1.8} /><span>{c.common[id]}</span>{active === id && <ArrowRight className="nav-current-arrow" size={16} />}</button>)}</nav>
@@ -492,6 +494,7 @@ export default function Portfolio() {
         {active === "github" && <GithubPanel github={github} />}
         {active === "chat" && <ChatPanel />}
         {active === "contact" && <Contact openChat={() => navigate("chat")} />}
+        {active === "ai" && <AiAssistant />}
       </section>
     </main>
   </div></div></LanguageContext.Provider>;

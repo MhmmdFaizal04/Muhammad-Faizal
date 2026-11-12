@@ -2,6 +2,20 @@
 
 Next.js static export on Cloudflare Pages, Pages Functions for APIs, D1 for chat/visitor counts/cache, GSAP for animations.
 
+## Portfolio AI assistant
+
+The AI Assistant tab appears below Contact and supports ID/EN. `POST /api/ai` sends a single question (no conversation history) to `https://api.rindri.com/v1/chat/completions` with model ID `claude-sonnet-5-5`. This is a provider-specific model ID; availability and model identity depend on ThirtyStore. No provider key is bundled into browser code. Questions leave Cloudflare and are sent to this third-party provider; do not submit private data.
+
+Before deployment:
+
+1. Revoke any API key shared in messages/screenshots. Create a replacement key and save it as a **Production encrypted secret** named `THIRTYSTORE_API_KEY` in Cloudflare Pages. Never commit it or prefix it with `NEXT_PUBLIC_`.
+2. Apply `migrations/0005_ai_limits.sql` to the D1 database actually bound as `DB`. Verify the database name and ID in `wrangler.jsonc` first, then run `npx wrangler d1 migrations apply <actual-database-name> --remote`.
+3. Push to the production branch to deploy with the new secret and migration.
+
+The server enforces a same-origin check, a 2 KB request-body limit, 400-character questions, a conservative profile-topic/input filter, no user-supplied roles or history, a fixed verified profile, a 240-token output limit, a 25-second upstream timeout, and a basic output-code filter. D1 atomically reserves quota: 3 requests/minute and 20/day per Cloudflare-observed IP, plus 200/day globally (UTC windows). Only a daily rotating hash of the IP is stored with counters, not question/answer text. Failed upstream calls may consume quota; shared IPs share quota. Displayed messages remain in component memory only and reset on leaving the tab. Quotas are conservative: rejected requests during a partial quota reservation may also consume other buckets.
+
+These defenses reduce abuse but are not a guarantee against all prompt injection or automated use. Configure a spending cap at the provider as well; consider Cloudflare Turnstile/WAF for a high-traffic public launch. The assistant has no tools, cannot execute code, and receives no secrets in its prompt. Without a valid secret, migration, or available provider model it returns a localized unavailable message. A real upstream response has not been tested with the exposed key. Run `node scripts/test-ai-policy.mjs` for input-policy checks.
+
 The ID/EN switch in the sidebar changes all interface text across the eight panels. Proper names and original certificates retain their source names; certificate titles in the gallery have English display translations. UI copy lives in `src/components/language.tsx`.
 
 ## Run locally

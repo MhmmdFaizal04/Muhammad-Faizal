@@ -3,6 +3,7 @@ export interface Env {
   GITHUB_TOKEN?: string;
   WAKATIME_OAUTH_TOKEN?: string;
   OWNER_ADMIN_KEY?: string;
+  THIRTYSTORE_API_KEY?: string;
 }
 
 export type Session = { id: string; username: string };

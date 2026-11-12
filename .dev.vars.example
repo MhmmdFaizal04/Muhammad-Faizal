@@ -3,3 +3,5 @@
 GITHUB_TOKEN=your_read_only_github_token
 # Optional: OAuth token with read_stats scope, for real coding hours from WakaTime.
 WAKATIME_OAUTH_TOKEN=your_wakatime_oauth_token
+# AI portfolio assistant: store a NEW key as a Cloudflare Pages encrypted secret.
+THIRTYSTORE_API_KEY=your_private_thirtystore_key

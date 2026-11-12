@@ -5,7 +5,7 @@ import { createContext, useContext } from "react";
 export const copy = {
   id: {
     common: {
-      home: "Beranda", skills: "Keahlian", experiences: "Pengalaman", achievements: "Pencapaian", projects: "Proyek", github: "GitHub", chat: "Buku Tamu", contact: "Kontak",
+      home: "Beranda", skills: "Keahlian", experiences: "Pengalaman", achievements: "Pencapaian", projects: "Proyek", github: "GitHub", chat: "Buku Tamu", contact: "Kontak", ai: "Asisten AI",
       portfolio: "PORTOFOLIO", location: "MAKASSAR, INDONESIA", profileStatus: "Membangun Hal Keren", openMenu: "Buka menu", closeMenu: "Tutup menu", openChat: "Buka buku tamu", openGithub: "Buka GitHub", verified: "Terverifikasi", photoPlaceholder: "Tempat foto Muhammad Faizal", languageControl: "Bahasa website",
     },
     home: {
@@ -38,7 +38,7 @@ export const copy = {
   },
   en: {
     common: {
-      home: "Home", skills: "Skills", experiences: "Experiences", achievements: "Achievements", projects: "Projects", github: "GitHub", chat: "Guestbook", contact: "Contact",
+      home: "Home", skills: "Skills", experiences: "Experiences", achievements: "Achievements", projects: "Projects", github: "GitHub", chat: "Guestbook", contact: "Contact", ai: "AI Assistant",
       portfolio: "PORTFOLIO", location: "MAKASSAR, INDONESIA", profileStatus: "Building Cool Things", openMenu: "Open menu", closeMenu: "Close menu", openChat: "Open guestbook", openGithub: "Open GitHub", verified: "Verified", photoPlaceholder: "Muhammad Faizal's photo placeholder", languageControl: "Website language",
     },
     home: {
