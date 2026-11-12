@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { Bot, Send, ShieldCheck } from "lucide-react";
+import { Bot, Send } from "lucide-react";
 import { useLanguage } from "./language";
 
 const translations = {
@@ -50,7 +50,6 @@ export default function AiAssistant() {
 
   return <div className="panel-inner section-panel ai-panel">
     <div className="section-head animate-in"><p className="kicker"><span className="kicker-line" />09 / {c.eyebrow}</p><h1>{c.title} <em>{c.accent}</em></h1><p className="section-description">{c.description}</p></div>
-    <div className="ai-notice animate-in"><ShieldCheck size={20} /><p>{c.note}</p></div>
     <div className="ai-shell animate-in">
       <div className="ai-header"><Bot size={21} /><strong>{c.assistant}</strong><span>Sonnet 5.5</span></div>
       <div className="ai-messages" role="log" aria-label={c.assistant} aria-live="polite" aria-busy={busy}>
