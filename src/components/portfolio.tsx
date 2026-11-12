@@ -433,7 +433,7 @@ export default function Portfolio() {
   const panelRef = useRef<HTMLElement>(null);
   const shellRef = useRef<HTMLDivElement>(null);
   const sidebarRef = useRef<HTMLElement>(null);
-  const menuInitialized = useRef(false);
+  const menuWasOpen = useRef(false);
   const visitTracked = useRef(false);
   const github = useGithub(active === "github");
 
@@ -446,11 +446,24 @@ export default function Portfolio() {
   }, []);
 
   useEffect(() => {
-    if (!mobileOpen) return;
+    if (!mobileOpen) {
+      if (menuWasOpen.current && window.innerWidth <= 960) shellRef.current?.querySelector<HTMLButtonElement>(".mobile-menu")?.focus();
+      menuWasOpen.current = false;
+      return;
+    }
+    menuWasOpen.current = true;
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
+        event.preventDefault();
         setMobileOpen(false);
-        shellRef.current?.querySelector<HTMLButtonElement>(".mobile-menu")?.focus();
+      }
+      if (event.key === "Tab") {
+        const controls = sidebarRef.current?.querySelectorAll<HTMLElement>("button:not(:disabled), a[href], [tabindex='0']");
+        if (!controls?.length) return;
+        const first = controls[0];
+        const last = controls[controls.length - 1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
       }
     };
     document.addEventListener("keydown", onKey);
@@ -469,20 +482,6 @@ export default function Portfolio() {
     void fetch("/api/visitors", { method: "POST", credentials: "same-origin", keepalive: true }).catch(() => {});
   }, []);
 
-  useLayoutEffect(() => {
-    const sidebar = sidebarRef.current;
-    if (!sidebar || !menuInitialized.current) { menuInitialized.current = true; return; }
-    if (window.innerWidth > 960 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const tween = gsap.fromTo(sidebar, { xPercent: mobileOpen ? -103 : 0 }, { xPercent: mobileOpen ? 0 : -103, duration: 0.3, ease: "power3.out" });
-    return () => { tween.kill(); };
-  }, [mobileOpen]);
-
-  useEffect(() => {
-    const clearOnDesktop = () => { if (window.innerWidth > 960 && sidebarRef.current) gsap.set(sidebarRef.current, { clearProps: "transform" }); };
-    window.addEventListener("resize", clearOnDesktop);
-    return () => window.removeEventListener("resize", clearOnDesktop);
-  }, []);
-
   useEffect(() => {
     const update = () => {
       const hash = window.location.hash.slice(1);
@@ -496,7 +495,7 @@ export default function Portfolio() {
   useEffect(() => {
     if (!shellRef.current || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const context = gsap.context(() => {
-      gsap.fromTo(".sidebar", { x: -26, opacity: 0 }, { x: 0, opacity: 1, duration: 0.75, ease: "power3.out" });
+      if (window.innerWidth > 960) gsap.fromTo(".sidebar", { x: -26, opacity: 0 }, { x: 0, opacity: 1, duration: 0.75, ease: "power3.out", clearProps: "transform,opacity" });
       gsap.fromTo(".content-frame", { x: 26, opacity: 0 }, { x: 0, opacity: 1, duration: 0.75, delay: 0.1, ease: "power3.out" });
     }, shellRef);
     return () => context.revert();
@@ -523,7 +522,7 @@ export default function Portfolio() {
       <div className="sidebar-divider" />
       <nav className="navigation" aria-label={language === "id" ? "Navigasi utama" : "Main navigation"}>{navigation.map(({ id, icon: Icon }) => <button key={id} className={`nav-item ${active === id ? "nav-active" : ""}`} onClick={() => navigate(id)} onPointerEnter={(event) => { if (event.pointerType === "mouse") animateSidebarIcon(event.currentTarget, true); }} onPointerLeave={(event) => { if (event.pointerType === "mouse") animateSidebarIcon(event.currentTarget, false); }} onFocus={(event) => animateSidebarIcon(event.currentTarget, true)} onBlur={(event) => animateSidebarIcon(event.currentTarget, false)} aria-current={active === id ? "page" : undefined}><Icon className="nav-icon" size={18} strokeWidth={1.8} /><span>{c.common[id]}</span>{active === id && <ArrowRight className="nav-current-arrow" size={16} />}</button>)}</nav>
     </aside>
-    <main className="content-frame"><div className="topbar"><button className="mobile-menu" onClick={() => setMobileOpen(true)} aria-label={c.common.openMenu}><Menu size={21} /></button><div className="breadcrumb"><span>{c.common.portfolio}</span><ChevronRight size={13} /><strong>{c.common[active].toUpperCase()}</strong></div><div className="topbar-right"><span className="topbar-location"><MapPin size={14} /> {c.common.location}</span><span className="topbar-divider" /><a href="https://github.com/MhmmdFaizal04" target="_blank" rel="noopener noreferrer" aria-label={c.common.openGithub}><Github size={19} /></a><button className="topbar-chat" aria-label={c.common.openChat} onClick={() => navigate("chat")}><MessageCircle size={19} /></button></div></div>
+    <main className="content-frame"><div className="topbar"><button className="mobile-menu" onClick={() => setMobileOpen((open) => !open)} aria-label={mobileOpen ? c.common.closeMenu : c.common.openMenu} aria-expanded={mobileOpen} aria-controls="portfolio-navigation"><Menu size={21} /></button><div className="breadcrumb"><span>{c.common.portfolio}</span><ChevronRight size={13} /><strong>{c.common[active].toUpperCase()}</strong></div><div className="topbar-right"><span className="topbar-location"><MapPin size={14} /> {c.common.location}</span><span className="topbar-divider" /><a href="https://github.com/MhmmdFaizal04" target="_blank" rel="noopener noreferrer" aria-label={c.common.openGithub}><Github size={19} /></a><button className="topbar-chat" aria-label={c.common.openChat} onClick={() => navigate("chat")}><MessageCircle size={19} /></button></div></div>
       <section className="content-panel" ref={panelRef} aria-label={`${c.common[active]} ${language === "id" ? "konten" : "content"}`}>
         {active === "home" && <HomePanel navigate={navigate} />}
         {active === "about" && <AboutPanel />}
