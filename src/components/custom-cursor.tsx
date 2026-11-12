@@ -52,5 +52,5 @@ export default function CustomCursor() {
     };
   }, []);
 
-  return <div className="custom-cursor" ref={cursorRef} aria-hidden="true"><svg width="22" height="26" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.5 2.5V19.5L7.5 15.2L11 23L14.3 21.5L10.7 13.8L19.5 12.3L2.5 2.5Z" fill="#C3F677" stroke="#101410" strokeWidth="2.5" strokeLinejoin="round" /><path d="M2.5 2.5L19.5 12.3L10.7 13.8" stroke="#A2D76D" strokeWidth="0.8" strokeLinejoin="round" /></svg></div>;
+  return <div className="custom-cursor" ref={cursorRef} aria-hidden="true"><svg width="22" height="26" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 2V20L7 15.5L10.5 23.5L14 22L10.5 14L18 13.5L2 2Z" fill="#111111" stroke="#FFFFFF" strokeWidth="1.5" strokeLinejoin="round" /></svg></div>;
 }
