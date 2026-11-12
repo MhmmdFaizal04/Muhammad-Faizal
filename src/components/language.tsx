@@ -5,10 +5,14 @@ import { createContext, useContext } from "react";
 export const copy = {
   id: {
     common: {
-      home: "Beranda", skills: "Keahlian", experiences: "Pengalaman", achievements: "Pencapaian", projects: "Proyek", github: "GitHub", chat: "Buku Tamu", contact: "Kontak", ai: "Asisten AI",
+      home: "Beranda", about: "Tentang Saya", experiences: "Pengalaman", achievements: "Pencapaian", projects: "Proyek", github: "GitHub", chat: "Buku Tamu", contact: "Kontak", ai: "Asisten AI",
       portfolio: "PORTOFOLIO", location: "MAKASSAR, INDONESIA", profileStatus: "Membangun Hal Keren", openMenu: "Buka menu", closeMenu: "Tutup menu", openChat: "Buka buku tamu", openGithub: "Buka GitHub", verified: "Terverifikasi", photoPlaceholder: "Tempat foto Muhammad Faizal", languageControl: "Bahasa website",
     },
+    aboutPage: {
+      eyebrow: "TENTANG SAYA", title: "Di balik", accent: "setiap karya.", description: "Sedikit cerita tentang diri saya, perjalanan karier, dan pendidikan yang saya tempuh.", story: "Halo, saya Muhammad Faizal, pengembang web dan pekerja kreatif lepas yang berbasis di Makassar, Indonesia. Saya tertarik pada pengembangan web, karya visual, dan penyuntingan kreatif.", interests: "Saya senang mengeksplorasi teknologi dan mewujudkan ide melalui proyek nyata. Portofolio ini menjadi ruang untuk membagikan karya, proses belajar, dan kesempatan untuk berkolaborasi.", career: "Karier", independent: "PEKERJA LEPAS", careerDescription: "Mengerjakan pengembangan web dan penyuntingan kreatif secara lepas. Saya terbuka untuk berdiskusi tentang proyek dan peluang kolaborasi.", education: "Pendidikan", school: "SEKOLAH MENENGAH ATAS", university: "UNIVERSITAS", expected: "Target selesai", schoolLogoPending: "Logo SMA Negeri 1 Luwu Utara belum tersedia; ikon pendidikan sementara",
+    },
     home: {
+      story: "Saya terus belajar lewat proyek web dan karya kreatif. Bagi saya, setiap proyek adalah kesempatan untuk mengasah kemampuan, mencoba ide baru, dan membangun sesuatu yang bermanfaat.",
       eyebrow: "SELAMAT DATANG", available: "Terbuka untuk kolaborasi", greeting: "Halo, saya", description: "Pengembang web dan pekerja kreatif lepas dari Makassar, Indonesia. Saya senang mewujudkan ide menjadi pengalaman digital.", projects: "Lihat proyek saya", chat: "Mari berbincang", photoTop: "FOTO ANDA", photoBottom: "DI SINI ↗",
     },
     skills: {
@@ -37,11 +41,15 @@ export const copy = {
     },
   },
   en: {
+    aboutPage: {
+      eyebrow: "ABOUT ME", title: "Behind", accent: "the work.", description: "A little about me, my career journey, and my education.", story: "Hi, I'm Muhammad Faizal, a web developer and creative freelancer based in Makassar, Indonesia. My interests include web development, visual work, and creative editing.", interests: "I enjoy exploring technology and bringing ideas to life through real projects. This portfolio is a space to share my work, my learning journey, and opportunities to collaborate.", career: "Career", independent: "FREELANCE", careerDescription: "Working independently on web development and creative editing. I'm open to discussing projects and collaboration opportunities.", education: "Education", school: "SENIOR HIGH SCHOOL", university: "UNIVERSITY", expected: "Expected completion", schoolLogoPending: "SMA Negeri 1 Luwu Utara logo not yet available; temporary education icon",
+    },
     common: {
-      home: "Home", skills: "Skills", experiences: "Experiences", achievements: "Achievements", projects: "Projects", github: "GitHub", chat: "Guestbook", contact: "Contact", ai: "AI Assistant",
+      home: "Home", about: "About Me", experiences: "Experiences", achievements: "Achievements", projects: "Projects", github: "GitHub", chat: "Guestbook", contact: "Contact", ai: "AI Assistant",
       portfolio: "PORTFOLIO", location: "MAKASSAR, INDONESIA", profileStatus: "Building Cool Things", openMenu: "Open menu", closeMenu: "Close menu", openChat: "Open guestbook", openGithub: "Open GitHub", verified: "Verified", photoPlaceholder: "Muhammad Faizal's photo placeholder", languageControl: "Website language",
     },
     home: {
+      story: "I keep learning through web projects and creative work. Every project is an opportunity to sharpen my skills, explore new ideas, and build something useful.",
       eyebrow: "WELCOME TO MY SPACE", available: "Open for collaboration", greeting: "Hi, I'm", description: "A curious web developer and creative freelancer based in Makassar, Indonesia. I enjoy bringing ideas to life on the web.", projects: "Explore my work", chat: "Let's talk", photoTop: "YOUR PHOTO", photoBottom: "GOES HERE ↗",
     },
     skills: {

@@ -2,6 +2,12 @@
 
 Next.js static export on Cloudflare Pages, Pages Functions for APIs, D1 for chat/visitor counts/cache, GSAP for animations.
 
+## Home and About Me
+
+Home now contains a text-only introduction and the complete Skills section, including the interactive technology-card shuffle. The large hero portrait is removed; the sidebar profile photo remains. About Me (`#about`) replaces Skills in the sidebar and contains biography, freelance career, and education: SMA Negeri 1 Luwu Utara (2021–2023) and Universitas Muhammadiyah Makassar (2023–2027, expected completion). Legacy `#skills` links redirect to Home. All new text supports ID/EN; the AI profile context includes the same education details.
+
+The university logo at `public/unismuh-logo.png` is sourced from the official university site's icon (`https://www.unismuh.ac.id/wp-content/uploads/2022/09/cropped-logo-unismuh-official-192x192.png`). The high-school logo at `public/Logo-Smansa-Lutra-Baru.png` was supplied by the owner and is displayed on its education card.
+
 ## Portfolio AI assistant
 
 The AI Assistant tab appears below Contact and supports ID/EN. `POST /api/ai` sends a single question (no conversation history) to `https://api.rindri.com/v1/chat/completions` with model ID `claude-sonnet-5-5`. This is a provider-specific model ID; availability and model identity depend on ThirtyStore. No provider key is bundled into browser code. Questions leave Cloudflare and are sent to this third-party provider; do not submit private data.

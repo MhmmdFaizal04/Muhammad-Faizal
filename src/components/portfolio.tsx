@@ -16,15 +16,15 @@ import {
   ArrowRight, ArrowUpRight, BriefcaseBusiness,
   ChevronRight, Code2, Command,
   Github, House, Layers3, MapPin, Gamepad2, Activity, Clock3, Eye,
-  Menu, MessageCircle, Send, ShieldCheck, Sparkles, UserRound, Wrench, X, Award, BadgeCheck, Bot,
+  Menu, MessageCircle, Send, ShieldCheck, Sparkles, UserRound, X, Award, BadgeCheck, Bot, GraduationCap,
 } from "lucide-react";
 
-const tabs = ["home", "skills", "experiences", "achievements", "projects", "github", "chat", "contact", "ai"] as const;
+const tabs = ["home", "about", "experiences", "achievements", "projects", "github", "chat", "contact", "ai"] as const;
 type Tab = (typeof tabs)[number];
 
 const navigation = [
   { id: "home", icon: House },
-  { id: "skills", icon: Wrench },
+  { id: "about", icon: UserRound },
   { id: "experiences", icon: BriefcaseBusiness },
   { id: "achievements", icon: Award },
   { id: "projects", icon: Layers3 },
@@ -83,22 +83,18 @@ function LoadingCard({ label }: { label: string }) {
 function HomePanel({ navigate }: { navigate: (tab: Tab) => void }) {
   const c = useCopy();
   return (
-    <div className="panel-inner home-panel">
-      <div className="home-copy">
+    <div className="panel-inner section-panel home-overview">
+      <section className="home-intro" aria-labelledby="home-heading">
         <div className="animate-in"><Kicker>{c.home.eyebrow}</Kicker></div>
-        <div className="availability animate-in"><span className="availability-dot" /> {c.home.available} <Sparkles size={13} /></div>
-        <h1 className="hero-title animate-in">{c.home.greeting}<br /><span>Muhammad</span><br /><span>Faizal<span className="hero-period">.</span></span></h1>
-        <p className="hero-description animate-in">{c.home.description}</p>
+        <h1 id="home-heading" className="home-heading animate-in">{c.home.greeting}<br /><span>Muhammad Faizal<span className="hero-period">.</span></span></h1>
+        <p className="home-story animate-in">{c.home.description}</p>
+        <p className="home-story animate-in">{c.home.story}</p>
         <div className="hero-actions animate-in">
           <button className="button-primary" onClick={() => navigate("projects")} onMouseEnter={(e) => animateHover(e, true)} onMouseLeave={(e) => animateHover(e, false)}>{c.home.projects} <ArrowUpRight size={17} /></button>
           <button className="button-quiet" onClick={() => navigate("chat")}>{c.home.chat} <ArrowRight size={16} /></button>
         </div>
-      </div>
-      <div className="hero-art animate-in">
-        <div className="art-orbit orbit-one" /><div className="art-orbit orbit-two" />
-        <div className="art-star art-star-top">✳</div><div className="art-star art-star-bottom">✳</div>
-        <div className="portrait-placeholder"><Image className="profile-portrait" src="/profile.jpg" alt="Muhammad Faizal" fill sizes="(max-width: 780px) 190px, (max-width: 1100px) 220px, 280px" priority /></div>
-      </div>
+      </section>
+      <SkillsSection />
     </div>
   );
 }
@@ -157,16 +153,36 @@ function SkillShuffle() {
   </div>;
 }
 
-function SkillsPanel() {
+function SkillsSection() {
   const c = useCopy();
-  return <div className="panel-inner section-panel">
-    <SectionHead number="02" eyebrow={c.skills.eyebrow} title={<>{c.skills.title} <em>{c.skills.titleAccent}</em></>} description={c.skills.description} />
+  return <section className="home-skills" id="skills" aria-labelledby="skills-heading">
+    <div className="subsection-head animate-in"><Kicker>{c.skills.eyebrow}</Kicker><h2 id="skills-heading">{c.skills.title} <em>{c.skills.titleAccent}</em></h2><p className="section-description">{c.skills.description}</p></div>
     <SkillShuffle />
     <div className="skills-grid">{skills.map(({ icon: Icon, number, title, text, tags, className }) => <article className={`skill-card animate-in ${className}`} key={title}>
       <div className="skill-card-top"><span className="skill-icon"><Icon size={23} strokeWidth={1.7} /></span><span className="card-number">/ {number}</span></div>
       <div><h2>{c.skills[title]}</h2><p>{c.skills[text]}</p></div><div className="tag-row">{tags.map((tag) => <span className="tag" key={tag}>{c.skills[tag]}</span>)}</div>
     </article>)}</div>
     <div className="note-bar animate-in"><span className="note-icon"><Command size={19} /></span><span>{c.skills.note}</span><span className="note-end">{c.skills.more} <ArrowUpRight size={14} /></span></div>
+  </section>;
+}
+
+function AboutPanel() {
+  const c = useCopy();
+  const a = c.aboutPage;
+  return <div className="panel-inner section-panel about-panel">
+    <SectionHead number="02" eyebrow={a.eyebrow} title={<>{a.title} <em>{a.accent}</em></>} description={a.description} />
+    <div className="about-story animate-in"><p>{a.story}</p><p>{a.interests}</p></div>
+    <section className="about-section" aria-labelledby="career-heading">
+      <div className="about-section-heading animate-in"><BriefcaseBusiness size={21} /><h2 id="career-heading">{a.career}</h2></div>
+      <article className="career-card animate-in"><div className="career-card-top"><span className="entry-category">{a.independent}</span><span className="entry-pill"><span />{c.experiences.ongoing}</span></div><h3>{c.experiences.freelanceTitle}</h3><p>{a.careerDescription}</p><div className="tag-row"><span className="tag">{c.skills.tagWeb}</span><span className="tag">{c.skills.tagEditing}</span></div></article>
+    </section>
+    <section className="about-section" aria-labelledby="education-heading">
+      <div className="about-section-heading animate-in"><GraduationCap size={22} /><h2 id="education-heading">{a.education}</h2></div>
+      <div className="education-list">
+        <article className="education-card animate-in"><span className="education-logo"><Image src="/Logo-Smansa-Lutra-Baru.png" alt="SMA Negeri 1 Luwu Utara" width={64} height={64} /></span><div className="education-copy"><span className="entry-category">{a.school}</span><h3>SMA Negeri 1 Luwu Utara</h3><p>2021 — 2023</p></div></article>
+        <article className="education-card animate-in"><span className="education-logo"><Image src="/unismuh-logo.png" alt="Universitas Muhammadiyah Makassar" width={64} height={64} /></span><div className="education-copy"><span className="entry-category">{a.university}</span><h3>Universitas Muhammadiyah Makassar</h3><p>2023 — 2027 <span className="education-status">{a.expected}</span></p></div></article>
+      </div>
+    </section>
   </div>;
 }
 
@@ -176,7 +192,7 @@ function ExperiencesPanel() {
     <SectionHead number="03" eyebrow={c.experiences.eyebrow} title={<>{c.experiences.title} <em>{c.experiences.titleAccent}</em></>} description={c.experiences.description} />
     <div className="timeline">
       <div className="timeline-entry animate-in"><div className="timeline-marker" /><div className="timeline-date">{c.experiences.current}</div><div className="timeline-content"><span className="entry-category">{c.experiences.whatIDo}</span><h2>{c.experiences.freelanceTitle}</h2><p>{c.experiences.freelanceText}</p><span className="entry-pill"><span /> {c.experiences.ongoing}</span></div></div>
-      <div className="timeline-entry animate-in"><div className="timeline-marker" /><div className="timeline-date">{c.experiences.education}</div><div className="timeline-content"><span className="entry-category">{c.experiences.learning}</span><h2>Universitas Muhammadiyah Makassar</h2><p>{c.experiences.universityText}</p></div></div>
+      <div className="timeline-entry animate-in"><div className="timeline-marker" /><div className="timeline-date">{c.experiences.education}</div><div className="timeline-content"><span className="entry-category">{c.experiences.learning}</span><h2>Universitas Muhammadiyah Makassar</h2><p>2023 — 2027 · {c.aboutPage.expected}</p></div></div>
     </div>
     <div className="experience-footer animate-in"><span>{c.experiences.footer}</span><Sparkles size={17} /></div>
   </div>;
@@ -412,6 +428,7 @@ function ChatPanel() {
 export default function Portfolio() {
   const [active, setActive] = useState<Tab>("home");
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [compactLayout, setCompactLayout] = useState(false);
   const [language, setLanguage] = useState<Language>("id");
   const c = copy[language];
   const panelRef = useRef<HTMLElement>(null);
@@ -420,6 +437,27 @@ export default function Portfolio() {
   const menuInitialized = useRef(false);
   const visitTracked = useRef(false);
   const github = useGithub(active === "github");
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 960px)");
+    const update = () => { setCompactLayout(media.matches); if (!media.matches) setMobileOpen(false); };
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMobileOpen(false);
+        shellRef.current?.querySelector<HTMLButtonElement>(".mobile-menu")?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    sidebarRef.current?.querySelector<HTMLButtonElement>(".mobile-close")?.focus();
+    return () => document.removeEventListener("keydown", onKey);
+  }, [mobileOpen]);
 
   useEffect(() => {
     document.documentElement.lang = language;
@@ -435,13 +473,13 @@ export default function Portfolio() {
   useLayoutEffect(() => {
     const sidebar = sidebarRef.current;
     if (!sidebar || !menuInitialized.current) { menuInitialized.current = true; return; }
-    if (window.innerWidth > 780 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.innerWidth > 960 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const tween = gsap.fromTo(sidebar, { xPercent: mobileOpen ? -103 : 0 }, { xPercent: mobileOpen ? 0 : -103, duration: 0.3, ease: "power3.out" });
     return () => { tween.kill(); };
   }, [mobileOpen]);
 
   useEffect(() => {
-    const clearOnDesktop = () => { if (window.innerWidth > 780 && sidebarRef.current) gsap.set(sidebarRef.current, { clearProps: "transform" }); };
+    const clearOnDesktop = () => { if (window.innerWidth > 960 && sidebarRef.current) gsap.set(sidebarRef.current, { clearProps: "transform" }); };
     window.addEventListener("resize", clearOnDesktop);
     return () => window.removeEventListener("resize", clearOnDesktop);
   }, []);
@@ -449,6 +487,7 @@ export default function Portfolio() {
   useEffect(() => {
     const update = () => {
       const hash = window.location.hash.slice(1);
+      if (hash === "skills") { window.location.replace("#home"); setActive("home"); return; }
       setActive(tabs.includes(hash as Tab) ? hash as Tab : "home");
     };
     update(); window.addEventListener("hashchange", update);
@@ -477,7 +516,8 @@ export default function Portfolio() {
   const navigate = (tab: Tab) => { setMobileOpen(false); if (active !== tab) window.location.hash = tab; };
 
   return <LanguageContext.Provider value={language}><div className="site-wrap"><CustomCursor /><div className="site-glow glow-left" /><div className="site-glow glow-right" /><div className="app-shell" ref={shellRef}>
-    <aside className={`sidebar ${mobileOpen ? "sidebar-open" : ""}`} ref={sidebarRef}>
+    {mobileOpen && <button className="sidebar-backdrop" aria-label={c.common.closeMenu} tabIndex={-1} onClick={() => setMobileOpen(false)} />}
+    <aside id="portfolio-navigation" className={`sidebar ${mobileOpen ? "sidebar-open" : ""}`} ref={sidebarRef} inert={compactLayout && !mobileOpen}>
       <div className="sidebar-top"><button className="brand" onClick={() => navigate("home")} aria-label={`Muhammad Faizal — ${c.common.home}`}>mf<span>.</span></button><button className="mobile-close" onClick={() => setMobileOpen(false)} aria-label={c.common.closeMenu}><X size={20} /></button></div>
       <div className="sidebar-profile"><div className="sidebar-avatar"><Image className="profile-avatar-image" src="/profile.jpg" alt="Muhammad Faizal" fill sizes="88px" priority /><i /></div><div className="profile-name">Muhammad Faizal <span className="verified-indicator" tabIndex={0} aria-label={c.common.verified} aria-describedby="verified-tooltip"><BadgeCheck className="verified-badge" size={19} fill="#1d9bf0" stroke="#ffffff" strokeWidth={1.8} aria-hidden="true" /><span className="verified-tooltip" id="verified-tooltip" role="tooltip">{c.common.verified}</span></span></div><div className="profile-badge"><span /> {c.common.profileStatus}</div></div>
       <div className="sidebar-controls"><div className="language-switch" aria-label={c.common.languageControl}><button className={language === "en" ? "selected" : ""} onClick={() => setLanguage("en")} aria-pressed={language === "en"}>EN</button><button className={language === "id" ? "selected" : ""} onClick={() => setLanguage("id")} aria-pressed={language === "id"}>ID</button></div><a className="sidebar-icon-link" href="https://github.com/MhmmdFaizal04" target="_blank" rel="noopener noreferrer" aria-label={`${c.common.openGithub} Muhammad Faizal`}><Github size={19} /></a><button className="sidebar-icon-link" onClick={() => navigate("chat")} aria-label={c.common.openChat}><MessageCircle size={19} /></button></div>
@@ -487,7 +527,7 @@ export default function Portfolio() {
     <main className="content-frame"><div className="topbar"><button className="mobile-menu" onClick={() => setMobileOpen(true)} aria-label={c.common.openMenu}><Menu size={21} /></button><div className="breadcrumb"><span>{c.common.portfolio}</span><ChevronRight size={13} /><strong>{c.common[active].toUpperCase()}</strong></div><div className="topbar-right"><span className="topbar-location"><MapPin size={14} /> {c.common.location}</span><span className="topbar-divider" /><a href="https://github.com/MhmmdFaizal04" target="_blank" rel="noopener noreferrer" aria-label={c.common.openGithub}><Github size={19} /></a><button className="topbar-chat" aria-label={c.common.openChat} onClick={() => navigate("chat")}><MessageCircle size={19} /></button></div></div>
       <section className="content-panel" ref={panelRef} aria-label={`${c.common[active]} ${language === "id" ? "konten" : "content"}`}>
         {active === "home" && <HomePanel navigate={navigate} />}
-        {active === "skills" && <SkillsPanel />}
+        {active === "about" && <AboutPanel />}
         {active === "experiences" && <ExperiencesPanel />}
         {active === "achievements" && <Achievements />}
         {active === "projects" && <ProjectsPanel />}
