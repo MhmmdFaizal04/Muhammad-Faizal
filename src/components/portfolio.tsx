@@ -92,10 +92,10 @@ function HomePanel({ navigate }: { navigate: (tab: Tab) => void }) {
           <button className="button-quiet" onClick={() => navigate("chat")}>{c.home.chat} <ArrowRight size={16} /></button>
         </div>
       </div>
-      <div className="hero-art animate-in" aria-label={c.common.photoPlaceholder}>
+      <div className="hero-art animate-in">
         <div className="art-orbit orbit-one" /><div className="art-orbit orbit-two" />
         <div className="art-star art-star-top">✳</div><div className="art-star art-star-bottom">✳</div>
-        <div className="portrait-placeholder"><div className="portrait-grid" /><span className="portrait-monogram">MF<span>.</span></span><span className="portrait-note">{c.home.photoTop}<br />{c.home.photoBottom}</span></div>
+        <div className="portrait-placeholder"><Image className="profile-portrait" src="/profile.jpg" alt="Muhammad Faizal" fill sizes="(max-width: 780px) 190px, (max-width: 1100px) 220px, 280px" priority /></div>
       </div>
     </div>
   );
@@ -477,7 +477,7 @@ export default function Portfolio() {
   return <LanguageContext.Provider value={language}><div className="site-wrap"><CustomCursor /><div className="site-glow glow-left" /><div className="site-glow glow-right" /><div className="app-shell" ref={shellRef}>
     <aside className={`sidebar ${mobileOpen ? "sidebar-open" : ""}`} ref={sidebarRef}>
       <div className="sidebar-top"><button className="brand" onClick={() => navigate("home")} aria-label={`Muhammad Faizal — ${c.common.home}`}>mf<span>.</span></button><button className="mobile-close" onClick={() => setMobileOpen(false)} aria-label={c.common.closeMenu}><X size={20} /></button></div>
-      <div className="sidebar-profile"><div className="sidebar-avatar" role="img" aria-label={c.common.photoPlaceholder}><span>MF</span><i /></div><div className="profile-name">Muhammad Faizal <BadgeCheck className="verified-badge" size={19} fill="#1d9bf0" stroke="#ffffff" strokeWidth={1.8} aria-label={c.common.verified} /></div><div className="profile-badge"><span /> {c.common.profileStatus}</div></div>
+      <div className="sidebar-profile"><div className="sidebar-avatar"><Image className="profile-avatar-image" src="/profile.jpg" alt="Muhammad Faizal" fill sizes="88px" priority /><i /></div><div className="profile-name">Muhammad Faizal <BadgeCheck className="verified-badge" size={19} fill="#1d9bf0" stroke="#ffffff" strokeWidth={1.8} aria-label={c.common.verified} /></div><div className="profile-badge"><span /> {c.common.profileStatus}</div></div>
       <div className="sidebar-controls"><div className="language-switch" aria-label={c.common.languageControl}><button className={language === "en" ? "selected" : ""} onClick={() => setLanguage("en")} aria-pressed={language === "en"}>EN</button><button className={language === "id" ? "selected" : ""} onClick={() => setLanguage("id")} aria-pressed={language === "id"}>ID</button></div><a className="sidebar-icon-link" href="https://github.com/MhmmdFaizal04" target="_blank" rel="noopener noreferrer" aria-label={`${c.common.openGithub} Muhammad Faizal`}><Github size={19} /></a><button className="sidebar-icon-link" onClick={() => navigate("chat")} aria-label={c.common.openChat}><MessageCircle size={19} /></button></div>
       <div className="sidebar-divider" />
       <nav className="navigation" aria-label={language === "id" ? "Navigasi utama" : "Main navigation"}>{navigation.map(({ id, icon: Icon }) => <button key={id} className={`nav-item ${active === id ? "nav-active" : ""}`} onClick={() => navigate(id)} onPointerEnter={(event) => { if (event.pointerType === "mouse") animateSidebarIcon(event.currentTarget, true); }} onPointerLeave={(event) => { if (event.pointerType === "mouse") animateSidebarIcon(event.currentTarget, false); }} onFocus={(event) => animateSidebarIcon(event.currentTarget, true)} onBlur={(event) => animateSidebarIcon(event.currentTarget, false)} aria-current={active === id ? "page" : undefined}><Icon className="nav-icon" size={18} strokeWidth={1.8} /><span>{c.common[id]}</span>{active === id && <ArrowRight className="nav-current-arrow" size={16} />}</button>)}</nav>
